@@ -1,0 +1,20 @@
+package fr.bloctave.landmanager.init
+
+import fr.bloctave.landmanager.block.HomeBlock
+import fr.bloctave.landmanager.util.setRegName
+import net.minecraft.block.AbstractBlock
+import net.minecraft.block.Block
+import net.minecraft.block.SoundType
+import net.minecraft.block.material.Material
+import net.minecraftforge.event.RegistryEvent
+import thedarkcolour.kotlinforforge.forge.objectHolder
+
+object LMBlocks {
+	val HOME: Block by objectHolder("home")
+
+	fun register(event: RegistryEvent.Register<Block>) = event.registry.register(
+		HomeBlock(props(Material.WOOD).hardnessAndResistance(2F, 5F).sound(SoundType.WOOD)).setRegName("home")
+	)
+
+	private fun props(material: Material): AbstractBlock.Properties = AbstractBlock.Properties.create(material)
+}
