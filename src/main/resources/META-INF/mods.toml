@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/thebrightspark/Land-Manager/issues"
 
 [[mods]]
     modId="lmr"
-    version="${version}"
+    version="${file.jarVersion}"
     displayName="Land Manager Reloaded"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/land-manager"
     #logoFile="banner.png"
