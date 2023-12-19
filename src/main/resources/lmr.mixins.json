@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "fr.bloctave.lmr.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinBuildModes",
+    "MixinControlledContraptionEntity",
+    "MixinMechanicalBearingTileEntity"
+  ],
+  "client": [],
+  "server": [
+  ],
+  "minVersion": "0.8",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "verbose": true
+}

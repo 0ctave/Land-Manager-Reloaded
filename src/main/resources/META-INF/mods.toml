@@ -5,25 +5,19 @@ issueTrackerURL="https://github.com/thebrightspark/Land-Manager/issues"
 
 [[mods]]
     modId="lmr"
-    version="${file.jarVersion}"
-    displayName="Land Manager"
+    version="${version}"
+    displayName="Land Manager Reloaded"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/land-manager"
     #logoFile="banner.png"
-    authors="bright_spark, octave"
+    authors="_Octave, bright_spark,"
     description='''
     Manage custom sized areas of the world and allocate them to players!
     '''
 
-[[dependencies.landmanager]]
+[[dependencies.lmr]]
     modId="forge"
     mandatory=true
     versionRange="[36,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.landmanager]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.5]"
-    ordering="NONE"
-    side="BOTH"
