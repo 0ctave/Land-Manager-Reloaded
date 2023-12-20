@@ -4,7 +4,7 @@ on: [ pull_request, workflow_dispatch ]           #When your GitHub Action will 
 
 env:                                              #Environment variables that can later be referenced using ${{ env.MINECRAFT_VERSION }}. These are useful for repeating information and allow for quick changes for new mod updates
   MINECRAFT_VERSION: 1.16.5                      
-  JAVA_VERSION: 17                   
+  JAVA_VERSION: 8                   
   VERSION: 2.0.0+1.16.5 
   RELEASE_NAME: Land Manager Reloaded for 1.16.5
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
@@ -29,7 +29,7 @@ jobs:                                             #The place where you actually 
         uses: actions/setup-java@v2
         with:
           distribution: "temurin"
-          java-version: 17
+          java-version: 8
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
