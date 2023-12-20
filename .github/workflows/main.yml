@@ -1,170 +1,57 @@
-- name: mc-publish
-  # You may pin to the exact commit or the version.
-  # uses: Kir-Antipov/mc-publish@4db8bd126f74d5e143822181a2b1201308e2c796
-  uses: Kir-Antipov/mc-publish@v3.3
-  with:
-    # The unique identifier of your Modrinth project.
-    modrinth-id: # optional, default is ${undefined}
-    # Set to true to feature the version on Modrinth; false otherwise.
-    modrinth-featured: # optional, default is ${undefined}
-    # Sets the behavior for unfeaturing older Modrinth versions.
-    modrinth-unfeature-mode: # optional, default is subset
-    # Your Modrinth API token.
-    modrinth-token: # optional, default is ${undefined}
-    # The unique identifier of your CurseForge project.
-    curseforge-id: # optional, default is ${undefined}
-    # Your CurseForge API token.
-    curseforge-token: # optional, default is ${undefined}
-    # The tag name for the release where assets will be uploaded.
-    github-tag: # optional, default is ${undefined}
-    # Set to true to generate a changelog automatically for this release; false otherwise. Ignored if the GitHub Release already exists.
-    github-generate-changelog: # optional, default is ${undefined}
-    # Set to true to create a draft release; false otherwise. Ignored if the GitHub Release already exists.
-    github-draft: # optional, default is ${undefined}
-    # Set to true to mark the release as a prerelease; false otherwise. Ignored if the GitHub Release already exists.
-    github-prerelease: # optional, default is ${undefined}
-    # Defines the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Ignored if the Git tag already exists.
-    github-commitish: # optional, default is ${undefined}
-    # If specified, creates and links a discussion of the specified **existing** category to the release. Ignored if the GitHub Release already exists.
-    github-discussion: # optional, default is ${undefined}
-    # Your GitHub API token.
-    github-token: # optional, default is ${undefined}
-    # An array of globs determining which files to upload.
-    files: # optional, default is build/libs/!(*-@(dev|sources|javadoc)).jar
-build/libs/*-@(dev|sources|javadoc).jar
+name: Publish on GitHub, CurseForge & Modrinth    #The name of your GitHub Action on github.com
+ 
+on: [ pull_request, workflow_dispatch ]           #When your GitHub Action will be executed ('pull_request' -> on every Merge(/Pull) Request; 'workflow_dispatch' -> allows manual execution through github.com
 
-    # A glob determining the primary files to upload.
-    files-primary: # optional, default is ${undefined}
-    # A glob determining the secondary files to upload.
-    files-secondary: # optional, default is ${undefined}
-    # The name of the version.
-    name: # optional, default is ${undefined}
-    # The version number.
-    version: # optional, default is ${undefined}
-    # The version type - alpha, beta, or release.
-    version-type: # optional, default is ${undefined}
-    # The changelog for this version.
-    changelog: # optional, default is ${undefined}
-    # A glob pointing to the changelog file.
-    changelog-file: # optional, default is ${undefined}
-    # An array of supported mod loaders.
-    loaders: # optional, default is ${undefined}
-    # An array of supported Minecraft versions.
-    game-versions: # optional, default is ${undefined}
-    # An array of dependencies required by your project.
-    dependencies: # optional, default is ${undefined}
-    # Controls the method used to automatically resolve game versions.
-    version-resolver: # optional, default is ${undefined}
-    # Controls the method used to filter game versions.
-    game-version-filter: # optional, default is releases | min-major | min-minor
-    # An array of Java versions compatible with your project.
-    java: # optional, default is ${undefined}
-    # Defines the maximum number of asset publishing attempts.
-    retry-attempts: # optional, default is 2
-    # Specifies the delay (in milliseconds) between asset publishing attempts.
-    retry-delay: # optional, default is 10000
-    # Controls how the action responds to errors during the mod publishing process.
-    fail-mode: # optional, default is fail
-    # An array of globs determining which files to upload.
-    modrinth-files: # optional, default is ${undefined}
-    # An array of globs determining which files to upload.
-    curseforge-files: # optional, default is ${undefined}
-    # An array of globs determining which files to upload.
-    github-files: # optional, default is ${undefined}
-    # A glob determining the primary files to upload.
-    modrinth-files-primary: # optional, default is ${undefined}
-    # A glob determining the primary files to upload.
-    curseforge-files-primary: # optional, default is ${undefined}
-    # A glob determining the primary files to upload.
-    github-files-primary: # optional, default is ${undefined}
-    # A glob determining the secondary files to upload.
-    modrinth-files-secondary: # optional, default is ${undefined}
-    # A glob determining the secondary files to upload.
-    curseforge-files-secondary: # optional, default is ${undefined}
-    # A glob determining the secondary files to upload.
-    github-files-secondary: # optional, default is ${undefined}
-    # The name of the version.
-    modrinth-name: # optional, default is ${undefined}
-    # The name of the version.
-    curseforge-name: # optional, default is ${undefined}
-    # The name of the version.
-    github-name: # optional, default is ${undefined}
-    # The version number.
-    modrinth-version: # optional, default is ${undefined}
-    # The version number.
-    curseforge-version: # optional, default is ${undefined}
-    # The version number.
-    github-version: # optional, default is ${undefined}
-    # The version type - alpha, beta, or release.
-    modrinth-version-type: # optional, default is ${undefined}
-    # The version type - alpha, beta, or release.
-    curseforge-version-type: # optional, default is ${undefined}
-    # The version type - alpha, beta, or release.
-    github-version-type: # optional, default is ${undefined}
-    # The changelog for this version.
-    modrinth-changelog: # optional, default is ${undefined}
-    # The changelog for this version.
-    curseforge-changelog: # optional, default is ${undefined}
-    # The changelog for this version.
-    github-changelog: # optional, default is ${undefined}
-    # A glob pointing to the changelog file.
-    modrinth-changelog-file: # optional, default is ${undefined}
-    # A glob pointing to the changelog file.
-    curseforge-changelog-file: # optional, default is ${undefined}
-    # A glob pointing to the changelog file.
-    github-changelog-file: # optional, default is ${undefined}
-    # An array of supported mod loaders.
-    modrinth-loaders: # optional, default is ${undefined}
-    # An array of supported mod loaders.
-    curseforge-loaders: # optional, default is ${undefined}
-    # An array of supported mod loaders.
-    github-loaders: # optional, default is ${undefined}
-    # An array of supported Minecraft versions.
-    modrinth-game-versions: # optional, default is ${undefined}
-    # An array of supported Minecraft versions.
-    curseforge-game-versions: # optional, default is ${undefined}
-    # An array of supported Minecraft versions.
-    github-game-versions: # optional, default is ${undefined}
-    # An array of dependencies required by your project.
-    modrinth-dependencies: # optional, default is ${undefined}
-    # An array of dependencies required by your project.
-    curseforge-dependencies: # optional, default is ${undefined}
-    # An array of dependencies required by your project.
-    github-dependencies: # optional, default is ${undefined}
-    # Controls the method used to automatically resolve game versions.
-    modrinth-version-resolver: # optional, default is ${undefined}
-    # Controls the method used to automatically resolve game versions.
-    curseforge-version-resolver: # optional, default is ${undefined}
-    # Controls the method used to automatically resolve game versions.
-    github-version-resolver: # optional, default is ${undefined}
-    # Controls the method used to filter game versions.
-    modrinth-game-version-filter: # optional, default is ${undefined}
-    # Controls the method used to filter game versions.
-    curseforge-game-version-filter: # optional, default is ${undefined}
-    # Controls the method used to filter game versions.
-    github-game-version-filter: # optional, default is ${undefined}
-    # An array of Java versions compatible with your project.
-    modrinth-java: # optional, default is ${undefined}
-    # An array of Java versions compatible with your project.
-    curseforge-java: # optional, default is ${undefined}
-    # An array of Java versions compatible with your project.
-    github-java: # optional, default is ${undefined}
-    # Defines the maximum number of asset publishing attempts.
-    modrinth-retry-attempts: # optional, default is ${undefined}
-    # Defines the maximum number of asset publishing attempts.
-    curseforge-retry-attempts: # optional, default is ${undefined}
-    # Defines the maximum number of asset publishing attempts.
-    github-retry-attempts: # optional, default is ${undefined}
-    # Specifies the delay (in milliseconds) between asset publishing attempts.
-    modrinth-retry-delay: # optional, default is ${undefined}
-    # Specifies the delay (in milliseconds) between asset publishing attempts.
-    curseforge-retry-delay: # optional, default is ${undefined}
-    # Specifies the delay (in milliseconds) between asset publishing attempts.
-    github-retry-delay: # optional, default is ${undefined}
-    # Controls how the action responds to errors during the mod publishing process.
-    modrinth-fail-mode: # optional, default is ${undefined}
-    # Controls how the action responds to errors during the mod publishing process.
-    curseforge-fail-mode: # optional, default is ${undefined}
-    # Controls how the action responds to errors during the mod publishing process.
-    github-fail-mode: # optional, default is ${undefined}
+env:                                              #Environment variables that can later be referenced using ${{ env.MINECRAFT_VERSION }}. These are useful for repeating information and allow for quick changes for new mod updates
+  MINECRAFT_VERSION: 1.16.5                      
+  JAVA_VERSION: 17                   
+  VERSION: 2.0.0+1.16.5 
+  RELEASE_NAME: Land Manager Reloaded for 1.16.5
+  MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}    
+  
+permissions:
+  contents: write
+
+jobs:                                             #The place where you actually tell the GitHub server what to do. 
+  build:                                          #To publish your mod you only need one 'job', here it is called 'build'.
+    runs-on: ubuntu-latest                        #'runs-on' specifies the operation system (linux).
+    steps:                                        #Under 'steps' you will list all the individual commands, such as MC-Publish by Kir-Antipov.
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Publish (CurseForge/Modrinth/GitHub)
+        uses: Kir-Antipov/mc-publish@v3.2                                   #The specified MC-Publish GitHub Action in the version 3.2
+        with:
+          modrinth-id: Gc9bAz4n                                             #The id of your modrinth project
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
+          github-tag: "v${{env.VERSION}}"
+          github-token: "${{env.GITHUB_TOKEN}}"
+
+          name: "${{env.RELEASE_NAME}}"                             
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md                                      #The file in which the changes of your new update are specified (the path starts at your project root)
+
+          loaders: forge
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
