@@ -8,7 +8,7 @@ buildscript {
 
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.+', changing: true
         classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: '1.6.10'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
         classpath 'org.parchmentmc:librarian:1.+'
@@ -144,7 +144,7 @@ dependencies {
     // Mod Dependencies
     implementation fg.deobf("curse.maven:citadel-331936:3441028")
 
-    compileOnly fg.deobf("curse.maven:ice-and-fire-dragons-264231:4614457")
+    implementation fg.deobf("curse.maven:ice-and-fire-dragons-264231:4614457")
 
 
 
