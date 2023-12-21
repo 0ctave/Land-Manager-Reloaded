@@ -31,11 +31,10 @@ jobs:                                             #The place where you actually 
           distribution: "temurin"
           java-version: 8
 
-      - name: Make Gradle Wrapper Executable
-        if: ${{ runner.os != 'Windows' }}
-        run: chmod +x ./gradlew
-
-      - name: Build
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+    
+      - name: Execute Gradle build
         run: ./gradlew clean build
 
       - name: Publish (CurseForge/Modrinth/GitHub)
