@@ -7,6 +7,7 @@ env:                                              #Environment variables that ca
   JAVA_VERSION: 8                   
   VERSION: 2.0.3+1.16.5 
   RELEASE_NAME: Land Manager Reloaded for 1.16.5
+  CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSE_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}    
   
@@ -44,6 +45,9 @@ jobs:                                             #The place where you actually 
       - name: Publish (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.2                                   #The specified MC-Publish GitHub Action in the version 3.2
         with:
+          curseforge-id: 927015                                             #The id of your CurseForge project
+          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+        
           modrinth-id: Gc9bAz4n                                             #The id of your modrinth project
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
@@ -58,3 +62,6 @@ jobs:                                             #The place where you actually 
           loaders: forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
+
+          dependencies: |
+            kotlin-for-forge
