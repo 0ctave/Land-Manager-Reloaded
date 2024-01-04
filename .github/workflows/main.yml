@@ -27,7 +27,7 @@ jobs:                                             #The place where you actually 
           submodules: true
 
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.4.2
         with:
           distribution: "temurin"
           java-version: 8
@@ -43,7 +43,7 @@ jobs:                                             #The place where you actually 
         run: ./gradlew clean build
 
       - name: Publish (CurseForge/Modrinth/GitHub)
-        uses: Kir-Antipov/mc-publish@v3.2                                   #The specified MC-Publish GitHub Action in the version 3.2
+        uses: Kir-Antipov/mc-publish@v3.3                                   #The specified MC-Publish GitHub Action in the version 3.2
         with:
           curseforge-id: 927015                                             #The id of your CurseForge project
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
