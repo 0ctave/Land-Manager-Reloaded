@@ -40,7 +40,7 @@ class MessageHomeActionKickOrPass : Message {
 			val world = player.level
 			val server = world.server ?: return@enqueueWork
 			val cap = world.areasCap
-			val area = cap.intersectingArea(pos)
+			val area = cap.intersectingArea(pos) ?: return@enqueueWork
 			if (!player.canEditArea(area)) {
 				LandManager.NETWORK.sendToPlayer(
 					MessageHomeActionReplyMessage("message.lmr.error.noPerm", 0xFF0000),
@@ -56,18 +56,9 @@ class MessageHomeActionKickOrPass : Message {
 				return@enqueueWork
 			}
 
-			var changed = true
 			if (isPass) {
-				val oldOwner = area!!.owner
-				area.owner = uuid
-				area.removeMember(uuid)
-				oldOwner?.let { area.addMember(oldOwner) }
-			} else {
-				changed = area!!.removeMember(uuid)
-				if (changed)
-					cap.decreasePlayerAreasNum(uuid)
-			}
-			if (changed) {
+				cap.setOwner(area, uuid)
+			} else if (area.removeMember(uuid)) {
 				cap.dataChanged(area, AreaUpdateType.CHANGE)
 				LandManager.NETWORK.sendToPlayer(MessageHomeActionReply(if (isPass) HomeGuiActionType.PASS else HomeGuiActionType.KICK, player.uuid, profile.name), player)
 			}

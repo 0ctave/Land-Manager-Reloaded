@@ -1,7 +1,6 @@
 package fr.bloctave.lmr.command.op
 
 
-
 import com.mojang.brigadier.context.CommandContext
 import fr.bloctave.lmr.AreaClaimApprovalEvent
 import fr.bloctave.lmr.LandManager
@@ -72,23 +71,28 @@ object ApproveCommand : AbstractCommand(
             return 0
 
         // Approve request
-        areas.setOwner(areaName, request.playerUuid)
-        context.source.sendSuccess(
-            TranslationTextComponent(
-                "lmr.command.approve.success",
-                request.id,
-                request.getPlayerName(server),
-                areaName
-            ),
-            true
-        )
-        LandManager.areaChange(context, AreaChangeType.CLAIM, areaName)
-        // Delete all requests for the area
-        requests.deleteAllForArea(areaName)
-        // Notify the player if they're online
-        server.playerList.getPlayer(request.playerUuid)?.sendMessage(
-            TranslationTextComponent("lmr.command.approve.playerMessage", areaName, context.getSenderName())
-        )
-        return 1
+        if (areas.setOwner(area, request.playerUuid)) {
+            context.source.sendSuccess(
+                TranslationTextComponent(
+                    "lmr.command.approve.success",
+                    request.id,
+                    request.getPlayerName(server),
+                    areaName
+                ),
+                true
+            )
+            LandManager.areaChange(context, AreaChangeType.CLAIM, areaName)
+            // Delete all requests for the area
+            requests.deleteAllForArea(areaName)
+            // Notify the player if they're online
+            server.playerList.getPlayer(request.playerUuid)?.sendMessage(
+                TranslationTextComponent("lmr.command.approve.playerMessage", areaName, context.getSenderName())
+            )
+            return 1
+
+        } else {
+            context.source.sendFailure(TranslationTextComponent("lmr.command.approve.ownLimit", areaName))
+            return 0
+        }
     }
 }

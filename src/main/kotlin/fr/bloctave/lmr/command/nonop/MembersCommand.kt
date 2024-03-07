@@ -1,5 +1,6 @@
 package fr.bloctave.lmr.command.nonop
 
+import com.mojang.brigadier.exceptions.DynamicCommandExceptionType
 import fr.bloctave.lmr.command.AbstractCommand
 import fr.bloctave.lmr.command.LMCommand
 import fr.bloctave.lmr.command.LMCommand.AREA
@@ -10,7 +11,6 @@ import fr.bloctave.lmr.util.canEditArea
 import fr.bloctave.lmr.util.getWorldCapForArea
 import fr.bloctave.lmr.util.thenArgument
 import fr.bloctave.lmr.util.thenLiteral
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType
 import net.minecraft.command.arguments.EntityArgument
 import net.minecraft.util.text.TranslationTextComponent
 
@@ -30,11 +30,11 @@ object MembersCommand : AbstractCommand(
 						val server = context.source.server
 						val cap = server.getWorldCapForArea(area) ?: throw LMCommand.ERROR_NO_AREA.create(area.name)
 						val uuid = player.uuid
-						if (!cap.canJoinArea(uuid))
-							throw MembersCommand.CANT_JOIN.create(cap.getNumAreasJoined(uuid))
+						if (!cap.canJoinArea(area, uuid))
+							throw MembersCommand.CANT_JOIN.create(area.members.size)
 
 						if (area.addMember(uuid)) {
-							cap.increasePlayerAreasNum(uuid)
+							//cap.increasePlayerAreasNum(uuid)
 							cap.dataChanged(area, AreaUpdateType.CHANGE)
 							context.source.sendSuccess(TranslationTextComponent("lmr.command.members.add.success", player.displayName, area.name), true)
 							return@executes 1
@@ -58,11 +58,10 @@ object MembersCommand : AbstractCommand(
 						val server = context.source.server
 						val cap = server.getWorldCapForArea(area) ?: throw LMCommand.ERROR_NO_AREA.create(area.name)
 						val uuid = player.uuid
-						if (!cap.canJoinArea(uuid))
-							throw MembersCommand.CANT_JOIN.create(cap.getNumAreasJoined(uuid))
+						if (!cap.canJoinArea(area, uuid))
+							throw MembersCommand.CANT_JOIN.create(area.members.size)
 
 						if (area.removeMember(uuid)) {
-							cap.decreasePlayerAreasNum(uuid)
 							cap.dataChanged(area, AreaUpdateType.CHANGE)
 							context.source.sendSuccess(
 								TranslationTextComponent(

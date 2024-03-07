@@ -20,7 +20,7 @@ object DeleteCommand : AbstractCommand(
 				val area = AreaArgument.get(context, AREA)
 				val areaName = area.name
 				val areas = server.getWorldCapForArea(area) ?: throw LMCommand.ERROR_NO_AREA.create(areaName)
-				if (areas.removeArea(areaName)) {
+				if (context.source.playerOrException.canEditArea(area) && areas.removeArea(areaName)) {
 					MinecraftForge.EVENT_BUS.post(fr.bloctave.lmr.AreaDeletedEvent(area))
 					server.requests.deleteAllForArea(areaName)
 					context.source.sendSuccess(TranslationTextComponent("lmr.command.delete.deleted", areaName), true)
@@ -31,7 +31,7 @@ object DeleteCommand : AbstractCommand(
 					LandManager.areaChange(context, AreaChangeType.DELETE, areaName)
 					return@executes 1
 				}
-				context.source.sendSuccess(TranslationTextComponent("lmr.command.delete.failed", areaName), true)
+				context.source.sendFailure(TranslationTextComponent("lmr.command.delete.failed", areaName))
 				return@executes 0
 			}
 		}

@@ -1,7 +1,7 @@
 package fr.bloctave.lmr.api.vanilla.handler
 
-import fr.bloctave.lmr.api.vanilla.VanillaConfig
 import fr.bloctave.lmr.api.proxy.IEventHandler
+import fr.bloctave.lmr.api.vanilla.VanillaConfig
 import fr.bloctave.lmr.util.EventUtil
 import fr.bloctave.lmr.util.sendAreaActionBarMessage
 import net.minecraft.util.text.TextFormatting

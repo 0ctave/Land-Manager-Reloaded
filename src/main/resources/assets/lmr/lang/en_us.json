@@ -21,7 +21,7 @@
 	"message.lmr.protection.interact": "Cannot interact with blocks in this area!",
 	"message.lmr.home.none": "This Home Block is not within an area!",
 	"message.lmr.home.notMember": "You are not a member of this area!",
-	"message.lmr.error.maxJoined": "You can't join any more areas! You are a member of %s areas.",
+	"message.lmr.error.maxJoined": "You can't join this area ! There is already %s members.",
 	"message.lmr.error.noPerm": "You do not have permission to edit this area",
 	"message.lmr.error.noPlayerName": "Can't find the player '%s'",
 	"message.lmr.error.noPlayer": "Can't find the player",
@@ -74,6 +74,7 @@
 	"lmr.command.claim.request.success": "Claim request successfully created for area %s",
 	"lmr.command.claim.request.failed": "Claim request failed - you already have one for the area %s!",
 	"lmr.command.claim.request.opMessage": "§7New claim request (%s) from %s for area %s",
+	"lmr.command.claim.ownLimit": "You already own too many areas!",
 
 	"lmr.command.members.usage": "Use '/lm members <subcommand>'",
 	"lmr.command.members.add.usage": "Use '/lm members add <areaName> <playerName>' to add the player to the area",
@@ -88,6 +89,10 @@
 	"lmr.command.myareas.title": "My Areas - Page %s / %s",
 
 	"lmr.command.setowner.usage": "Use '/lm setowner <areaName> [playerName]' to set the player as the new owner of the area. OPs can provide no player to remove the owner",
+	"lmr.command.setowner.noArea": "Area %s does not exist",
+	"lmr.command.setowner.noPlayer": "Player %s does not exist",
+	"lmr.command.setowner.maxOwned": "%s already owns too many areas!",
+
 	"lmr.command.setowner.op": "You must be an OP or owner of the area to use this command",
 	"lmr.command.setowner.success": "The new owner of the area %s is %s",
 
@@ -104,6 +109,7 @@
 	"lmr.command.approve.noArea": "Area %s does not exist",
 	"lmr.command.approve.success": "Approved request %s - %s is now the owner of area %s",
 	"lmr.command.approve.playerMessage": "Your request for area %s has been approved by %s!",
+	"lmr.command.approve.ownLimit": "The player owns too many areas!",
 
 	"lmr.command.delete.usage": "Use '/lm op delete <areaName>' to delete an area",
 	"lmr.command.delete.deleted": "Deleted area %s",

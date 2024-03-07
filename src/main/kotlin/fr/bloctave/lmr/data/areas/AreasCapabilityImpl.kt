@@ -52,9 +52,15 @@ class AreasCapabilityImpl : AreasCapability {
 		return true
 	}
 
-	override fun setOwner(areaName: String, playerUuid: UUID): Boolean {
-		val area = getArea(areaName) ?: return false
+	override fun setOwner(area: Area, playerUuid: UUID): Boolean {
+		if (getNumAreasOwned(playerUuid) >= ServerConfig.maxAreasCanOwn()) return false
+		area.owner?.let {
+			area.addMember(it)
+			decreasePlayerAreasNum(it)
+		}
 		area.owner = playerUuid
+		area.removeMember(playerUuid)
+		increasePlayerAreasNum(playerUuid)
 		dataChanged(area, AreaUpdateType.CHANGE)
 		return true
 	}
@@ -83,7 +89,7 @@ class AreasCapabilityImpl : AreasCapability {
 
 	override fun intersectingAreas(pos: BlockPos): Set<Area> = areas.values.filter { it.intersects(pos) }.toSet()
 
-	override fun getNumAreasJoined(playerUuid: UUID): Int = numAreasPerPlayer.computeIfAbsent(playerUuid) { 0 }
+	override fun getNumAreasOwned(playerUuid: UUID): Int = numAreasPerPlayer.computeIfAbsent(playerUuid) { 0 }
 
 	override fun getSmallestArea(areas: Set<Area>): Area? = areas.fold(null as Area?) { smallest, area -> if (smallest == null || area.size < smallest.size) area else smallest }
 
@@ -95,12 +101,12 @@ class AreasCapabilityImpl : AreasCapability {
 
 	override fun validAreaSize(area: Area): Boolean = (ServerConfig.maxAreaLength() == -1 || area.maxPos.subtract(area.minPos).x <= ServerConfig.maxAreaLength()) && (ServerConfig.maxAreaWidth() == -1 || area.maxPos.subtract(area.minPos).z <= ServerConfig.maxAreaWidth()) && (ServerConfig.maxAreaSize() == -1.0 || area.size <= ServerConfig.maxAreaSize())
 
-	override fun canJoinArea(playerUuid: UUID): Boolean =
-		ServerConfig.maxAreaCapacity() < 0 || getNumAreasJoined(playerUuid) < ServerConfig.maxAreaCapacity()
+	override fun canJoinArea(area: Area, playerUuid: UUID): Boolean =
+		ServerConfig.maxAreaCapacity() < 0 || area.members.size < ServerConfig.maxAreaCapacity()
 
 	override fun increasePlayerAreasNum(playerUuid: UUID) {
 		numAreasPerPlayer.compute(playerUuid) { _, num ->
-			num?.let { min(num + 1, ServerConfig.maxAreaCapacity()) } ?: 1
+			num?.let { min(num + 1, ServerConfig.maxAreasCanOwn()) } ?: 1
 		}
 	}
 
@@ -139,7 +145,6 @@ class AreasCapabilityImpl : AreasCapability {
 			val area = Area(listNbt as CompoundNBT)
 			areas[area.name] = area
 			area.owner?.let { increasePlayerAreasNum(it) }
-			area.members.forEach { increasePlayerAreasNum(it) }
 		}
 	}
 }

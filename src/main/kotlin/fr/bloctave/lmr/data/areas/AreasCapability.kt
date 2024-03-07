@@ -27,7 +27,7 @@ interface AreasCapability : INBTSerializable<CompoundNBT> {
 
 	fun renameArea(oldName: String, newName: String): Boolean
 
-	fun setOwner(areaName: String, playerUuid: UUID): Boolean
+	fun setOwner(area: Area, playerUuid: UUID): Boolean
 
 	fun getAllAreas(): List<Area>
 
@@ -53,9 +53,9 @@ interface AreasCapability : INBTSerializable<CompoundNBT> {
 
 	fun sendDataToPlayer(player: ServerPlayerEntity)
 
-	fun getNumAreasJoined(playerUuid: UUID): Int
+	fun getNumAreasOwned(playerUuid: UUID): Int
 
-	fun canJoinArea(playerUuid: UUID): Boolean
+	fun canJoinArea(area: Area, playerUuid: UUID): Boolean
 
 	fun increasePlayerAreasNum(playerUuid: UUID)
 

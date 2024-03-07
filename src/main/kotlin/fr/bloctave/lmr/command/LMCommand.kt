@@ -58,6 +58,7 @@ object LMCommand : AbstractCommand(
 	const val REQUEST = "requestId"
 
 	val ERROR_CANT_EDIT = DynamicCommandExceptionType { TranslationTextComponent("lmr.command.noPerm", it) }
+	val ERROR_NO_PLAYER = DynamicCommandExceptionType { TranslationTextComponent("lmr.command.noPlayer", it) }
 	val ERROR_NO_AREA = DynamicCommandExceptionType { TranslationTextComponent("lmr.command.none", it) }
 
 	fun permissionCommand(

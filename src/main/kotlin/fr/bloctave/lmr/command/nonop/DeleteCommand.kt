@@ -20,7 +20,8 @@ object DeleteCommand : AbstractCommand(
 				val area = AreaArgument.get(context, AREA)
 				val areaName = area.name
 
-				if (!CommandUtil.canSeeArea(area, context.source.playerOrException)) {
+				//if (!CommandUtil.canSeeArea(area, context.source.playerOrException)) {
+				if(!context.source.playerOrException.canEditArea(area)) {
 					context.source.sendSuccess(TranslationTextComponent("lmr.command.delete.noperm", areaName), true)
 					return@executes 0
 				}

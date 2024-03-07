@@ -36,7 +36,8 @@ class MessageHomeActionAdd : Message {
 			val world = player.level
 			val server = world.server ?: return@enqueueWork
 			val cap = world.areasCap
-			val area = cap.intersectingArea(pos)
+			val area = cap.intersectingArea(pos)?: return@enqueueWork
+
 			if (!player.canEditArea(area)) {
 				sendError(player, "message.lmr.error.noPerm")
 				return@enqueueWork
@@ -47,12 +48,11 @@ class MessageHomeActionAdd : Message {
 				return@enqueueWork
 			}
 			val uuid = profile.id
-			if (!cap.canJoinArea(uuid)) {
+			if (!cap.canJoinArea(area, uuid)) {
 				sendError(player, "message.lmr.error.cantJoin", name)
 				return@enqueueWork
 			}
-			if (area!!.addMember(uuid)) {
-				cap.increasePlayerAreasNum(uuid)
+			if (area.addMember(uuid)) {
 				cap.dataChanged(area, AreaUpdateType.CHANGE)
 				LandManager.NETWORK.sendToPlayer(MessageHomeActionReply(HomeGuiActionType.ADD, uuid, profile.name), player)
 			} else

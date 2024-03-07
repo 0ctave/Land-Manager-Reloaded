@@ -305,6 +305,8 @@ fun ServerPlayerEntity?.canEditArea(area: Area?): Boolean {
 val ServerPlayerEntity.username: String
 	get() = this.gameProfile.name
 
+
+
 fun PlayerProfileCache.hasUsername(username: String): Boolean = this.profilesByName.containsKey(username)
 
 fun PlayerProfileCache.getProfileForUsername(username: String): GameProfile? =

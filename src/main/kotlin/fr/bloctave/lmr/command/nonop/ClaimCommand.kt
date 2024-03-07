@@ -9,7 +9,6 @@ import fr.bloctave.lmr.command.LMCommand.AREA
 import fr.bloctave.lmr.command.argumentType.AreaArgument
 import fr.bloctave.lmr.config.ServerConfig
 import fr.bloctave.lmr.data.areas.Area
-import fr.bloctave.lmr.data.areas.AreaUpdateType
 import fr.bloctave.lmr.util.*
 import net.minecraft.command.CommandSource
 import net.minecraft.entity.player.PlayerEntity
@@ -43,6 +42,10 @@ object ClaimCommand : AbstractCommand(
 		// TODO: Economy support to buy areas
 
 		val source = context.source
+		return claim(source, area, player)
+	}
+
+	fun claim(source: CommandSource, area: Area, player: PlayerEntity): Int {
 		if (ServerConfig.claimRequest()) {
 
 			// Make this a "request" instead of immediately claiming
@@ -59,11 +62,15 @@ object ClaimCommand : AbstractCommand(
 			}
 		} else if (!MinecraftForge.EVENT_BUS.post(fr.bloctave.lmr.AreaClaimEvent(player, area))) {
 			// Claim the area
-			area.owner = player.uuid
-			player.level.areasCap.dataChanged(area, AreaUpdateType.CHANGE)
-			source.sendSuccess(TranslationTextComponent("lmr.command.claim.claimed", area.name), true)
-			LandManager.areaChange(source.server, AreaChangeType.CLAIM, area.name, player as ServerPlayerEntity)
-			return 1
+			if (player.level.areasCap.setOwner(area, player.uuid)) {
+				LandManager.areaChange(source.server, AreaChangeType.CLAIM, area.name, player as ServerPlayerEntity)
+				source.sendSuccess(TranslationTextComponent("lmr.command.claim.claimed", area.name), true)
+				return 1
+
+			} else {
+				source.sendFailure(TranslationTextComponent("lmr.command.claim.ownLimit", area.name))
+				return 0
+			}
 		}
 		return 0
 	}

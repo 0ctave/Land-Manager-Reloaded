@@ -142,32 +142,35 @@ dependencies {
 
 
     // Mod Dependencies
-    implementation fg.deobf("curse.maven:citadel-331936:3441028")
+    compileOnly fg.deobf("curse.maven:citadel-331936:3441028")
 
-    implementation fg.deobf("curse.maven:ice-and-fire-dragons-264231:4614457")
-
-
-
-    implementation fg.deobf("curse.maven:effortless-building-302113:4332451")
-
-    implementation fg.deobf("curse.maven:hole-filler-mod-440585:3362158")
-
-    implementation fg.deobf("curse.maven:autoreglib-250363:3326041")
-    implementation fg.deobf("curse.maven:quark-243121:3642325")
+    compileOnly fg.deobf("curse.maven:ice-and-fire-dragons-264231:4614457")
 
 
-    implementation fg.deobf("curse.maven:selene-499980:3517008")
-    implementation fg.deobf("curse.maven:supplementaries-412082:4802243")
 
-    implementation fg.deobf("curse.maven:mantle-74924:3631982")
-    implementation fg.deobf("curse.maven:tinkers-construct-74072:3695126")
+    compileOnly fg.deobf("curse.maven:effortless-building-302113:4332451")
 
-    implementation fg.deobf("curse.maven:born-in-chaos-686437:4030231")
+    compileOnly fg.deobf("curse.maven:hole-filler-mod-440585:3362158")
+
+    compileOnly fg.deobf("curse.maven:autoreglib-250363:3326041")
+    compileOnly fg.deobf("curse.maven:quark-243121:3642325")
 
 
-    implementation fg.deobf("com.jozufozu.flywheel:Flywheel:1.16-0.2.5.53")
-    implementation fg.deobf("com.tterrag.registrate:Registrate:MC1.16.5-1.0.10")
-    implementation fg.deobf("com.simibubi.create:Create:mc1.16.5_v0.3.2g+483")
+    compileOnly fg.deobf("curse.maven:selene-499980:3517008")
+    compileOnly fg.deobf("curse.maven:supplementaries-412082:4802243")
+
+    compileOnly fg.deobf("curse.maven:mantle-74924:3631982")
+    compileOnly fg.deobf("curse.maven:tinkers-construct-74072:3695126")
+
+    compileOnly fg.deobf("curse.maven:born-in-chaos-686437:4030231")
+
+    compileOnly fg.deobf("curse.maven:storage-drawers-223852:3776277")
+
+
+    compileOnly fg.deobf("com.jozufozu.flywheel:Flywheel:1.16-0.2.5.53")
+    compileOnly fg.deobf("com.tterrag.registrate:Registrate:MC1.16.5-1.0.10")
+    compileOnly fg.deobf("com.simibubi.create:Create:mc1.16.5_v0.3.2g+483")
+
 
 
 }

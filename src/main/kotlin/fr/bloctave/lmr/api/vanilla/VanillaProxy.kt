@@ -1,9 +1,7 @@
 package fr.bloctave.lmr.api.vanilla
 
-import fr.bloctave.lmr.api.vanilla.handler.*
 import fr.bloctave.lmr.api.proxy.SoftProxy
-import fr.bloctave.lmr.api.vanilla.handler.PlayerInteractRightClickBlockHandler
-import fr.bloctave.lmr.api.vanilla.handler.PlayerInteractRightClickItemHandler
+import fr.bloctave.lmr.api.vanilla.handler.*
 
 object VanillaProxy : SoftProxy<VanillaConfig>("minecraft", VanillaConfig::class) {
 
@@ -15,6 +13,9 @@ object VanillaProxy : SoftProxy<VanillaConfig>("minecraft", VanillaConfig::class
         this.addEventHandler(BlockBreakHandler::class)
         this.addEventHandler(PlayerBreakSpeedHandler::class)
 
+        this.addEventHandler(PlayerAttackHangingEntityHandler::class)
+
+        this.addEventHandler(PlayerInteractLeftClickBlockHandler::class)
         this.addEventHandler(PlayerInteractRightClickBlockHandler::class)
         this.addEventHandler(PlayerInteractRightClickItemHandler::class)
 

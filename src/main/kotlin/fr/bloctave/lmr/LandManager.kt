@@ -1,29 +1,27 @@
 package fr.bloctave.lmr
 
 import com.mojang.brigadier.context.CommandContext
-import fr.bloctave.lmr.data.requests.ClientRequest
-import fr.bloctave.lmr.message.MessageRequestAdd
-import fr.bloctave.lmr.message.MessageRequestDelete
 import fr.bloctave.lmr.api.create.CreateProxy
 import fr.bloctave.lmr.api.effortlessbuilding.EffortlessBuildingProxy
 import fr.bloctave.lmr.api.holefiller.HoleFillerProxy
 import fr.bloctave.lmr.api.iceandfire.IceAndFireProxy
+import fr.bloctave.lmr.api.proxy.DependencyProxy
 import fr.bloctave.lmr.api.supplementaries.SupplementariesProxy
+import fr.bloctave.lmr.api.vanilla.VanillaProxy
 import fr.bloctave.lmr.command.LMCommand
 import fr.bloctave.lmr.command.argumentType.AreaArgument
 import fr.bloctave.lmr.command.argumentType.RequestArgument
+import fr.bloctave.lmr.config.ClientConfig
+import fr.bloctave.lmr.config.CommonConfig
+import fr.bloctave.lmr.config.ServerConfig
+import fr.bloctave.lmr.data.requests.ClientRequest
 import fr.bloctave.lmr.init.LMBlocks
 import fr.bloctave.lmr.init.LMCapabilities
 import fr.bloctave.lmr.init.LMItems
 import fr.bloctave.lmr.message.*
-import fr.bloctave.lmr.api.proxy.DependencyProxy
-
-import fr.bloctave.lmr.api.vanilla.VanillaProxy
-import fr.bloctave.lmr.config.ClientConfig
-import fr.bloctave.lmr.config.CommonConfig
-import fr.bloctave.lmr.config.ServerConfig
-
 import fr.bloctave.lmr.util.*
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.screen.Screen
 import net.minecraft.command.CommandSource
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.ItemGroup
@@ -32,6 +30,8 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.ExtensionPoint
+import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.fml.config.ModConfig.ModConfigEvent
@@ -44,6 +44,8 @@ import org.spongepowered.asm.mixin.MixinEnvironment
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.forge.registerConfig
+import vazkii.quark.base.client.config.gui.QuarkConfigHomeScreen
+import java.util.function.BiFunction
 
 
 @Mod(LandManager.MOD_ID)
@@ -149,6 +151,15 @@ object LandManager {
 		dependencyProxy.addDependency(CreateProxy)
 
 		dependencyProxy.registerDependencies()
+
+
+		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY) {
+			BiFunction { minecraft: Minecraft?, screen: Screen? ->
+				QuarkConfigHomeScreen(
+					screen
+				)
+			}
+		}
 
 		//MyPacketHandler()
 		//EVENT_NETWORK_CHANNEL.addListener(this::handleEvent)
