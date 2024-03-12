@@ -201,3 +201,11 @@ publishing {
         }
     }
 }
+
+tasks.register('printVersionName') {
+    println project.version
+}
+
+tasks.register('printMCVersionName') {
+    println project.mc_version
+}

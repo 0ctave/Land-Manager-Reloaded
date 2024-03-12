@@ -41,22 +41,23 @@ jobs:                                             #The place where you actually 
           format: 'properties'
           key: version
 
+      - name : Get Version
+        run: |
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+        id: get_version
+
       - name: Set version
         run: |
-          echo "VERSION=${{steps.get_version.outputs.value}}" >> $GITHUB_ENV
+          echo "VERSION=${{steps.get_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
-      - name: Get MC version
+      - name : Get Version
+        run: |
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
         id: get_mc_version
-        uses: actions/toolkit@master
-        with:
-          command: property
-          file: gradle.properties
-          format: 'properties'
-          key: mc_version
 
       - name: Set MC version
         run: |
-          echo "MC_VERSION=${{steps.get_mc_version.outputs.value}}" >> $GITHUB_ENV
+          echo "MC_VERSION=${{steps.get_mc_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
