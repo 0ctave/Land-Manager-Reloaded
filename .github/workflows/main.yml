@@ -32,30 +32,32 @@ jobs:                                             #The place where you actually 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.4.2
 
-      - name : Get Version
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Execute Gradle build
+        run: ./gradlew clean build
+
+
+      - name: Get Version
         run: |
-          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+          echo "::setOutput name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
         id: get_version
 
       - name: Set version
         run: |
           echo "VERSION=${{steps.get_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
-      - name : Get Version
+      - name: Get MC Version
         run: |
-          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
+          echo "::setOutput name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
         id: get_mc_version
 
       - name: Set MC version
         run: |
           echo "MC_VERSION=${{steps.get_mc_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
-
-      - name: Make Gradle Wrapper Executable
-        if: ${{ runner.os != 'Windows' }}
-        run: chmod +x ./gradlew
-    
-      - name: Execute Gradle build
-        run: ./gradlew clean build
+  
 
       - name: Publish (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3                                   #The specified MC-Publish GitHub Action in the version 3.2
