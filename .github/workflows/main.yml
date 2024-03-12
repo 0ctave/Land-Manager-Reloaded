@@ -47,8 +47,10 @@ jobs:                                             #The place where you actually 
 
       - name: Set version
         run: |
+          echo "Setting version to ${{steps.get_version.outputs.VERSION_NAME}}"
           echo "VERSION=${{steps.get_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
-
+          env | grep VERSION
+          echo "Using version $VERSION"
       - name: Get MC Version
         run: |
           echo "::setOutput name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
@@ -56,8 +58,10 @@ jobs:                                             #The place where you actually 
 
       - name: Set MC version
         run: |
-          echo "MC_VERSION=${{steps.get_mc_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
-  
+            echo "Setting version to ${{steps.get_mc_version.outputs.VERSION_NAME}}"
+            echo "MC_VERSION=${{steps.get_mc_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+            env | grep MC_VERSION
+            echo "Using version $MC_VERSION"  
 
       - name: Publish (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3                                   #The specified MC-Publish GitHub Action in the version 3.2
