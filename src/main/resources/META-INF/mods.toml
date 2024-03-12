@@ -26,10 +26,4 @@ issueTrackerURL="https://github.com/0ctave/Land-Manager-Reloaded/issues"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.lmr]]
-    modId="kotlinforforge"
-    mandatory=true
-    versionRange="[1.16.0,)"
-    ordering="NONE"
-    side="BOTH"
 
