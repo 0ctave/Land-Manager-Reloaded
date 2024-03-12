@@ -39,28 +39,23 @@ jobs:                                             #The place where you actually 
       - name: Execute Gradle build
         run: ./gradlew clean build
 
-
-      - name: Get Version
-        run: |
-          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
-        id: get_version
+      - uses: BrycensRanch/read-properties-action@latest
+        id: properties
+        with:
+          file: gradle.properties
+          all: true
 
       - name: Set version
         run: |
-          echo "Setting version to ${{steps.get_version.outputs.VERSION_NAME}}"
-          echo "VERSION=${{steps.get_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+          echo "Setting version to ${{ steps.properties.outputs.version }}"
+          echo "VERSION=${{ steps.properties.outputs.version }}" >> $GITHUB_ENV
           env | grep VERSION
           echo "Using version $VERSION"
 
-      - name: Get MC Version
-        run: |
-          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
-        id: get_mc_version
-
       - name: Set MC version
         run: |
-            echo "Setting version to ${{steps.get_mc_version.outputs.VERSION_NAME}}"
-            echo "MC_VERSION=${{steps.get_mc_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
+            echo "Setting version to ${{ steps.properties.outputs.mc_version }}"
+            echo "MC_VERSION=${{ steps.properties.outputs.mc_version }}" >> $GITHUB_ENV
             env | grep MC_VERSION
             echo "Using version $MC_VERSION"  
 
