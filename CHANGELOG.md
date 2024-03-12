@@ -5,19 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - yyyy-mm-dd
+## [[2.0.7](https://github.com/0ctave/Land-Manager-Reloaded/releases/tag/v2.0.7)] - 2024-03-12
 
-Here we write upgrading notes for brands. It's a team effort to make them as
-straightforward as possible.
+Land Manager Reloaded 2.0.7 is a patch release that includes the following changes:
 
 ### Added
-- [LMR-ZZZZ]()
-  Template line.
+
+- Added `settings.gradle` to the project. This file is used to define the repositories and dependencies of the project.
 
 ### Changed
 
-### Fixed
-
+- `build.gradle` got cleaned up, and now share the same base as [SMP Essentials](https://github.com/0ctave/SMPEssentials)
+- The mapping version is now defined in the `gradle.properties` file.
 
 ## [2.0.5] - 2024-03-12
 
@@ -48,3 +47,15 @@ Land Manager Reloaded 2.0.4 is a patch release that includes the following chang
 - Fixed an issue where anyone could delete areas, now you need to modification rights to delete an area.
 
 
+## [Unreleased] - yyyy-mm-dd
+
+Here we write upgrading notes for brands. It's a team effort to make them as
+straightforward as possible.
+
+### Added
+- [LMR-ZZZZ]()
+  Template line.
+
+### Changed
+
+### Fixed

@@ -1,23 +1,35 @@
 modLoader="kotlinforforge"
 loaderVersion="[1,)"
 license="GNU General Public License v3.0"
-issueTrackerURL="https://github.com/thebrightspark/Land-Manager/issues"
+issueTrackerURL="https://github.com/0ctave/Land-Manager-Reloaded/issues"
 
 [[mods]]
     modId="lmr"
     version="${file.jarVersion}"
     displayName="Land Manager Reloaded"
-    displayURL="https://www.curseforge.com/minecraft/mc-mods/land-manager"
+    displayURL="https://github.com/0ctave/Land-Manager-Reloaded/"
     #logoFile="banner.png"
     authors="_Octave, bright_spark,"
-    description='''
-    Manage custom sized areas of the world and allocate them to players!
-    '''
+    description='''Manage custom sized areas of the world and allocate them to players!'''
 
 [[dependencies.lmr]]
     modId="forge"
     mandatory=true
     versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.lmr]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.lmr]]
+    modId="kotlinforforge"
+    mandatory=true
+    versionRange="[1.16.0,)"
     ordering="NONE"
     side="BOTH"
 

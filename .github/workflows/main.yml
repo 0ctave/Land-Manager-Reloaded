@@ -48,11 +48,11 @@ jobs:                                             #The place where you actually 
 
       - name: Set version
         run: |
-          echo "Setting version to ${{ steps.properties.outputs.version }} + ${{ steps.properties.outputs.mc_version }}"
-          echo "VERSION=${{steps.properties.outputs.version}}" >> $GITHUB_ENV
+          echo "Setting version to ${{ steps.properties.outputs.mod_version }} + ${{ steps.properties.outputs.mc_version }}"
+          echo "VERSION=${{steps.properties.outputs.mod_version}}" >> $GITHUB_ENV
           echo "MC_VERSION=${{steps.properties.outputs.mc_version}}" >> $GITHUB_ENV
 
-          echo "Using version $VERSION + $MC_VERSION"
+          echo "Using version ${{env.VERSION}} + ${{env.MC_VERSION}}"
 
       - name: Publish (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3                                   #The specified MC-Publish GitHub Action in the version 3.2
