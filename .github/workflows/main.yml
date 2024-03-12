@@ -39,7 +39,8 @@ jobs:                                             #The place where you actually 
       - name: Execute Gradle build
         run: ./gradlew clean build
 
-      - uses: BrycensRanch/read-properties-action@latest
+      - name: Read properties
+        uses: BrycensRanch/read-properties-action@latest
         id: properties
         with:
           file: gradle.properties
@@ -47,17 +48,11 @@ jobs:                                             #The place where you actually 
 
       - name: Set version
         run: |
-          echo "Setting version to ${{ steps.properties.outputs.version }}"
-          echo "VERSION=${{ steps.properties.outputs.version }}" >> $GITHUB_ENV
-          env | grep VERSION
-          echo "Using version $VERSION"
+          echo "Setting version to ${{ steps.properties.outputs.version }} + ${{ steps.properties.outputs.mc_version }}"
+          echo "VERSION=${{steps.properties.outputs.version}}" >> $GITHUB_ENV
+          echo "MC_VERSION=${{steps.properties.outputs.mc_version}}" >> $GITHUB_ENV
 
-      - name: Set MC version
-        run: |
-            echo "Setting version to ${{ steps.properties.outputs.mc_version }}"
-            echo "MC_VERSION=${{ steps.properties.outputs.mc_version }}" >> $GITHUB_ENV
-            env | grep MC_VERSION
-            echo "Using version $MC_VERSION"  
+          echo "Using version $VERSION + $MC_VERSION"
 
       - name: Publish (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3                                   #The specified MC-Publish GitHub Action in the version 3.2
