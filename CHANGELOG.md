@@ -18,6 +18,15 @@ straightforward as possible.
 
 ### Fixed
 
+
+## [2.0.5] - 2024-03-12
+
+Land Manager Reloaded 2.0.5 is a patch release that includes the following changes:
+
+### Fixed
+
+- Fixed `maxAreasCanOwn` setting in the Server Configuration API. This setting was not being respected, player could still create areas, even if they owned the maximum amount and deletion of an area wouldn't properly decrease the number of areas owned by the player.
+
 ## [2.0.4] - 2024-03-06
 
 Land Manager Reloaded 2.0.4 is a patch release that includes the following changes:

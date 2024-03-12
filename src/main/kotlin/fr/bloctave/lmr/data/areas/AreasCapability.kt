@@ -55,6 +55,8 @@ interface AreasCapability : INBTSerializable<CompoundNBT> {
 
 	fun getNumAreasOwned(playerUuid: UUID): Int
 
+	fun canOwnArea(playerUuid: UUID): Boolean
+
 	fun canJoinArea(area: Area, playerUuid: UUID): Boolean
 
 	fun increasePlayerAreasNum(playerUuid: UUID)

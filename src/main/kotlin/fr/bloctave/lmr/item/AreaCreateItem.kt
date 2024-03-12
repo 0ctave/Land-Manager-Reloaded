@@ -59,10 +59,16 @@ class AreaCreateItem(props: Properties) : Item(props) {
 					val area = Area("", pos1.dimension, pos1.position, pos2)
 					val cap = world.areasCap
 
-					if (!cap.validAreaSize(area))
+
+					if (!ServerConfig.disableAutoClaiming() && !cap.canOwnArea(player.uuid)) {
+						player.sendActionBarMessage("message.lmr.create.ownLimit", TextFormatting.RED, maxAreaSizeStr())
+					}
+					else if (!cap.validAreaSize(area)) {
 						player.sendActionBarMessage("message.lmr.create.size", TextFormatting.RED, maxAreaSizeStr())
-					else if (!cap.validAreaIntersections(area))
+					}
+					else if (!cap.validAreaIntersections(area)) {
 						player.sendActionBarMessage("message.lmr.create.intersects", TextFormatting.RED)
+					}
 					else {
 						LandManager.NETWORK.sendToPlayer(
 							MessageOpenCreateAreaGui(pos1.dimension, pos1.position, pos2),

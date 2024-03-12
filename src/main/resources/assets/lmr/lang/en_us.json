@@ -13,6 +13,9 @@
 	"message.lmr.create.invalid_name": "Area name is invalid! It must not contain spaces or special characters other than '_'",
 	"message.lmr.create.invalid": "Area is invalid!",
 	"message.lmr.create.size": "Area is too big! Max size is %s blocks",
+	"message.lmr.create.ownLimit": "You already own too many areas!",
+
+
 
 	"message.lmr.areas.show": "Now showing all nearby areas",
 	"message.lmr.areas.hide": "Turned off showing all nearby areas",
@@ -109,7 +112,7 @@
 	"lmr.command.approve.noArea": "Area %s does not exist",
 	"lmr.command.approve.success": "Approved request %s - %s is now the owner of area %s",
 	"lmr.command.approve.playerMessage": "Your request for area %s has been approved by %s!",
-	"lmr.command.approve.ownLimit": "The player owns too many areas!",
+	"lmr.command.approve.ownLimit": "You already own too many areas!",
 
 	"lmr.command.delete.usage": "Use '/lm op delete <areaName>' to delete an area",
 	"lmr.command.delete.deleted": "Deleted area %s",

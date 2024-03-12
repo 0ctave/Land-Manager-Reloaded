@@ -35,8 +35,9 @@ class AreasCapabilityImpl : AreasCapability {
 		return true
 	}
 
-	override fun removeArea(areaName: String): Boolean = areas.remove(areaName)?.let {
-		dataChanged(it, AreaUpdateType.DELETE)
+	override fun removeArea(areaName: String): Boolean = areas.remove(areaName)?.let {area ->
+		area.owner?.let { decreasePlayerAreasNum(it) }
+		dataChanged(area, AreaUpdateType.DELETE)
 		return@let true
 	} ?: false
 
@@ -53,7 +54,7 @@ class AreasCapabilityImpl : AreasCapability {
 	}
 
 	override fun setOwner(area: Area, playerUuid: UUID): Boolean {
-		if (getNumAreasOwned(playerUuid) >= ServerConfig.maxAreasCanOwn()) return false
+		if (!canOwnArea(playerUuid)) return false
 		area.owner?.let {
 			area.addMember(it)
 			decreasePlayerAreasNum(it)
@@ -90,6 +91,8 @@ class AreasCapabilityImpl : AreasCapability {
 	override fun intersectingAreas(pos: BlockPos): Set<Area> = areas.values.filter { it.intersects(pos) }.toSet()
 
 	override fun getNumAreasOwned(playerUuid: UUID): Int = numAreasPerPlayer.computeIfAbsent(playerUuid) { 0 }
+
+	override fun canOwnArea(playerUuid: UUID): Boolean = ServerConfig.maxAreasCanOwn() == -1 || getNumAreasOwned(playerUuid) < ServerConfig.maxAreasCanOwn()
 
 	override fun getSmallestArea(areas: Set<Area>): Area? = areas.fold(null as Area?) { smallest, area -> if (smallest == null || area.size < smallest.size) area else smallest }
 

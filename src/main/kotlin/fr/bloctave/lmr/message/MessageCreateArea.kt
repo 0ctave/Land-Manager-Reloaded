@@ -58,8 +58,12 @@ class MessageCreateArea : Message {
                                 player
                             )
 
-                            if (!ServerConfig.disableAutoClaiming() && (ServerConfig.maxAreasCanOwn() == -1 || cap.getNumAreasOwned(player.uuid) < ServerConfig.maxAreasCanOwn())) {
-                                ClaimCommand.claim(player.createCommandSourceStack(), area, player)
+                            if (!ServerConfig.disableAutoClaiming()) {
+                                if (cap.canOwnArea(player.uuid)) {
+                                    ClaimCommand.claim(player.createCommandSourceStack(), area, player)
+                                } else {
+                                    cap.removeArea(area.name)
+                                }
                             }
                         }
                     }
