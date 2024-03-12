@@ -3,10 +3,7 @@ name: Publish on GitHub, CurseForge & Modrinth    #The name of your GitHub Actio
 on: [ pull_request, workflow_dispatch ]           #When your GitHub Action will be executed ('pull_request' -> on every Merge(/Pull) Request; 'workflow_dispatch' -> allows manual execution through github.com
 
 env:                                              #Environment variables that can later be referenced using ${{ env.MINECRAFT_VERSION }}. These are useful for repeating information and allow for quick changes for new mod updates
-  MINECRAFT_VERSION: 1.16.5                      
-  JAVA_VERSION: 8                   
-  VERSION: 2.0.5+1.16.5
-  RELEASE_NAME: Land Manager Reloaded for 1.16.5
+  JAVA_VERSION: 8
   CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSE_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}    
@@ -35,6 +32,32 @@ jobs:                                             #The place where you actually 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.4.2
 
+      - name: Get version
+        id: get_version
+        uses: actions/toolkit@master
+        with:
+          command: property
+          file: gradle.properties
+          format: 'properties'
+          key: version
+
+      - name: Set version
+        run: |
+          echo "VERSION=${{steps.get_version.outputs.value}}" >> $GITHUB_ENV
+
+      - name: Get MC version
+        id: get_mc_version
+        uses: actions/toolkit@master
+        with:
+          command: property
+          file: gradle.properties
+          format: 'properties'
+          key: mc_version
+
+      - name: Set MC version
+        run: |
+          echo "MC_VERSION=${{steps.get_mc_version.outputs.value}}" >> $GITHUB_ENV
+
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
@@ -54,13 +77,13 @@ jobs:                                             #The place where you actually 
           github-tag: "v${{env.VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
 
-          name: "${{env.RELEASE_NAME}}"                             
+          name: "Land Manager Reloaded ${{env.VERSION}} for ${{env.MC_VERSION}}"
           version: "${{env.VERSION}}"
           version-type: release
           changelog-file: CHANGELOG.md                                      #The file in which the changes of your new update are specified (the path starts at your project root)
 
           loaders: forge
-          game-versions: "${{env.MINECRAFT_VERSION}}"
+          game-versions: "${{env.MC_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
 
           dependencies: |

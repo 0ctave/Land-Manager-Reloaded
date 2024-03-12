@@ -26,9 +26,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'kotlin'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "${project.mc_version}-${project.mod_version}"
+version = "${project.version}"
 group = project.base_package // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = project.mod_name
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 compileKotlin { kotlinOptions { jvmTarget = "1.8" } }
@@ -196,11 +195,6 @@ jar.finalizedBy('reobfJar')
 
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
     repositories {
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
