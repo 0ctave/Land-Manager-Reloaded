@@ -51,6 +51,7 @@ jobs:                                             #The place where you actually 
           echo "VERSION=${{steps.get_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
           env | grep VERSION
           echo "Using version $VERSION"
+
       - name: Get MC Version
         run: |
           echo "::setOutput name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
