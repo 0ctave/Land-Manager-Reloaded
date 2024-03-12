@@ -42,7 +42,7 @@ jobs:                                             #The place where you actually 
 
       - name: Get Version
         run: |
-          echo "::setOutput name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
         id: get_version
 
       - name: Set version
@@ -54,7 +54,7 @@ jobs:                                             #The place where you actually 
 
       - name: Get MC Version
         run: |
-          echo "::setOutput name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printMCVersionName)"
         id: get_mc_version
 
       - name: Set MC version
